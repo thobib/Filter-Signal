@@ -1,0 +1,59 @@
+TUBES PSWK :
+Filter Signal ECG Menggunakan Low dan High Pass Filter, serta Derivative Pass Filter.
+
+1. 16101032	RIFQI FIRMAN SYAH
+2. 18101047	FANNY SYARIFUDIN
+3. 18101058	MUHAMMAD RAFIK SYAHPUTRA DAMANIK
+4. 18101068	THOBIB KHOIRUL ANNAS
+
+Tutorial :
+1. Siapkan file data ecg taruh dalam satu folder kodingan progam tersebut yang ektension (.m)
+2. Buka aplikasi MATLAB
+   Note : disini memakai MATLAB 2018b
+3. Pilih New Script / Ctrl + n
+4. Simpan terlebih dahulu dengan ektension .m dan simpan didalam satu folder data ecg (ecg_60hz_200.dat)
+5. Tulis source code berikut untuk menampilkan signal asli/original dari data ecg
+	close all;clear;clc; 
+	sig=load('ecg_60hz_200.dat'); % Untuk memanggil data ecg dengan file name ecg_60hz_200.dat 
+	N=length(sig);  % Variabel n merupakan dimensi vektor sig
+	fs=200; % Variabel fs bernilai 200 
+	t=[0:N-1]/fs; 
+	figure(1);subplot(4,2,1);plot(sig)
+	% figure(1); Untuk menampilkan figure ke 1
+	          % subplot(4,2,1); Untuk menggabungkan plot grafik dalam satu paragraf
+	                     % plot(sig) untuk menggambar grafik dari variabel sig
+	title('Original Signal') % Untuk menampilkan teks Original Signal
+6.Tulis source code berikut untuk membuat dan menampilkan low pass filter 
+	%%
+	     %           Low Pass Filter
+	b=1/32*[1 0 0 0 0 0 -2 0 0 0 0 0 1]; % Untuk membentuk ukuran signal variabel b dalam kolom tersebut
+	a=[1 -2 1];              % Untuk membentuk ukuran signal variabel a dalam kolom tersebut
+	sigL=filter(b,a,sig);    % untuk memfilter signal dari variabel b , a, dan sig yang disimpan ke variabel sigL
+	subplot(4,2,3);plot(sigL)% subplot(4,2,3) untuk menggabungkan plot grafik dalam satu figure
+	              % plot(sigL)untuk menggabar grafik dari variable sigL
+	title('Low Pass Filter') % Untuk menampilkan teks Low Pass Filter
+	subplot(4,2,4);zplane(b,a)% untuk membuat Imaginary part & Real Part
+7. Tulis source code berikut untuk membuat dan menampilkan high pass filter 
+	%           High Pass Filter
+	b=[-1/32 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 -1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1/32]; % Untuk membentuk ukuran signal variabel b dalam kolom tersebut
+	a=[1 -1];  % Untuk membentuk ukuran signal variabel a dalam kolom tersebut
+	sigH=filter(b,a,sigL);  % untuk memfilter signal dari variabel b , a, dan sigL yang disimpan ke variabel sigH
+	subplot(4,2,5);plot(sigH) % subplot(4,2,5) untuk menggabungkan plot grafik dalam satu figure
+	              % plot(sigH)untuk menggabar grafik dari variable sigL
+	title('High Pass Filter') % Untuk menampilkan teks High Pass Filter
+	subplot(4,2,6);zplane(b,a) % untuk membuat Imaginary part & Real Part
+8.Tulis source code berikut untuk membuat dan menampilkan derivative base filter 
+	%%
+	     %          Derivative Base Filter
+	b=[1/4 1/8 0 -1/8 -1/4]; % Untuk membentuk ukuran signal variabel b dalam kolom tersebut
+	a=[1];  % Untuk membentuk ukuran signal variabel a dalam kolom tersebut
+	sigD=filter(b,a,sigH); % untuk memfilter signal dari variabel b , a, dan sigD yang disimpan ke variabel sigH
+	subplot(4,2,7);plot(sigD) % subplot(4,2,7) untuk menggabungkan plot grafik dalam satu figure
+	              % plot(sigD)untuk menggabar grafik dari variable sigD
+	title('Derivative Base Filter') % Untuk menampilkan teks Derivative Base Filter
+	subplot(4,2,8);zplane(b,a) % untuk membuat Imaginary part & Real Part
+9. Kemudian save code program tersebut, dengan cara ctrl+s
+10.Untuk melakukan run program masuk ke tab Editor -> Run
+
+link video   : https://youtu.be/p7rX07KEaA8
+link project : 
